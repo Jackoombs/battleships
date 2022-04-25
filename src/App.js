@@ -6,25 +6,29 @@ import { useState } from 'react';
 
 function App() {
 
-  const [activeShip, setActiveShip] = useState({
-                                        ship: 'Carrier', 
-                                        color: 'rgb(255, 89, 94)',
-                                        length: '5'}
-  )
-
-  const activeShipClickHandler = (e) => {
-    console.log(e.currentTarget)
-    setActiveShip({
-      ship: e.currentTarget.textContent,
-      color:e.currentTarget.style.getPropertyValue('background-color'),
-      length: e.currentTarget.getAttribute('data-length')
-    })
+  const createShip = (name, color, length) => {
+    return{name, color, length, placed:false}
   }
+
+  let ships = [
+    createShip('Carrier', 'rgb(255, 89, 94)', 5),
+    createShip('Battleship', 'rgb(255, 202, 58)', 4),
+    createShip('Cruiser', 'rgb(138, 201, 38)', 3),
+    createShip('Submarine','rgb(226, 248, 241)', 3),
+    createShip('Destroyer', 'rgb(183, 158, 219)', 2) 
+  ]
+
+  console.log(ships)
+
+  const [activeShip, setActiveShip] = useState(ships[0])
 
   return (
     <div className="App">
       <Nav />
-      <ShipSelection activeShipClickHandler={activeShipClickHandler} activeShip={activeShip}/>
+      <ShipSelection 
+      activeShip={activeShip}
+      setActiveShip={setActiveShip}
+      ships={ships}/>
       <GameBoard activeShip={activeShip} />
       <h1>{activeShip.length}</h1>
     </div>

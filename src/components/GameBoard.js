@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import Tile from './Tile'
 
 function GameBoard(props) {
@@ -6,7 +7,11 @@ function GameBoard(props) {
   const [shipHover, setShipHover] = useState([])
   const [hoverOrientation, setHoverOrientation] = useState(true)
 
-  console.log(hoverOrientation)
+  useEffect(() => {
+    setShipHover([])
+  },[props.activeShip])
+
+  
 
   return (
     <main className="game-board"

@@ -1,4 +1,5 @@
 import React from "react";
+import { useEffect } from "react";
 
 function Ship(props) {
   
@@ -7,13 +8,18 @@ function Ship(props) {
     backgroundColor: `${props.color}`
   }
 
+  const clickHandler = () => {
+    props.activeShipClickHandler(props.id)
+  }
+
+  console.log()
   return (
-    <div className={`ship-wrapper ${props.name===props.activeShip.ship ? "active-ship" : ""}`} >
+    <div className={`ship-wrapper ${props.name===props.activeShip.name ? "active-ship" : ""}`} >
       <div 
         className="ship"
         data-length={props.length}
         style={styles}
-        onClick={props.activeShipClickHandler}>
+        onClick={clickHandler}>
         <h3>{props.name}</h3>
       </div>
     </div>
