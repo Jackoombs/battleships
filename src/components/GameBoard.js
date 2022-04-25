@@ -6,18 +6,18 @@ function GameBoard(props) {
 
   const [shipHover, setShipHover] = useState([])
   const [hoverOrientation, setHoverOrientation] = useState(true)
+  const [indexOnWheel, setIndexOnWheel] = useState(0)
 
   useEffect(() => {
     setShipHover([])
   },[props.activeShip])
 
-  
 
   return (
     <main className="game-board"
-          onWheel={() => {
+          onWheel={(e) => {
             setHoverOrientation(!hoverOrientation)
-          }}
+    }}
     >
       {[...Array(100)].map((e, i) => {
         return <Tile 
@@ -27,6 +27,8 @@ function GameBoard(props) {
                   isActive={shipHover.includes(i)?true:false}
                   setShipHover={setShipHover}
                   hoverOrientation={hoverOrientation}
+                  indexOnWheel={indexOnWheel}
+                  setIndexOnWheel={setIndexOnWheel}
                 />            
       })}
     </main>

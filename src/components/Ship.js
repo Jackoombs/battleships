@@ -11,8 +11,7 @@ function Ship(props) {
   const clickHandler = () => {
     props.activeShipClickHandler(props.id)
   }
-
-  console.log()
+  
   return (
     <div className={`ship-wrapper ${props.name===props.activeShip.name ? "active-ship" : ""}`} >
       <div 

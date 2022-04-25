@@ -34,7 +34,6 @@ const battleshipHover = (() => {
     const array = []
 
     for (let i=0; i<length; i++) array.push(initArrayTile + i*10)
-    console.log(array)
     
     array.forEach((element, index) => {
       if (element < 0) {
@@ -44,7 +43,6 @@ const battleshipHover = (() => {
       if (element > 99) {
         array.splice(index, 1)
         array.unshift(array[0] - 10)
-        console.log(array)
       }
     });
     return array.sort((a, b) => a - b).filter(a => a !== 'deleted')

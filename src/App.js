@@ -18,7 +18,6 @@ function App() {
     createShip('Destroyer', 'rgb(183, 158, 219)', 2) 
   ]
 
-  console.log(ships)
 
   const [activeShip, setActiveShip] = useState(ships[0])
 

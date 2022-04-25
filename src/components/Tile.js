@@ -12,15 +12,16 @@ function Tile(props) {
     if (props.index < 10 && props.index % 2 === 1) setInitClass('odd')
   },[])
 
-  // useEffect(() => {
-  //   selectHoverDirection()
-  // },[props.activeShip, props.hoverOrientation])
+  useEffect(() => {
+    if (props.indexOnWheel !== null){
+    selectHoverDirection(props.indexOnWheel, props.activeShip.length)
+    }
+    props.setIndexOnWheel(null)
+  },[props.indexOnWheel])
 
   const onHover = (e) => {
     selectHoverDirection(e.currentTarget.getAttribute('index'), props.activeShip.length)
   }
-  console.log(props.isActive, props.index)
-
   const selectHoverDirection = (index, length) => {
     if (props.hoverOrientation) return props.setShipHover(battleshipHover.horizontalHover(index, length))
     return props.setShipHover(battleshipHover.verticalHover(index, length))
@@ -32,6 +33,9 @@ function Tile(props) {
       className={[initClass, 'tile'].join(' ')} 
       index={props.index}
       onMouseEnter={onHover}
+      onWheel={(e) => {
+        props.setIndexOnWheel(e.currentTarget.getAttribute('index'))}
+      }
     >
       {props.index}
     </div>
