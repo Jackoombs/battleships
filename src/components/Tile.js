@@ -1,11 +1,10 @@
-import { hover } from "@testing-library/user-event/dist/hover"
-import React, { useEffect, useState } from "react"
+import React, { useEffect, useState} from "react"
 import battleshipHover from "../utils/battleshipHover"
 
 function Tile(props) {
 
   const [initClass, setInitClass] = useState('even')
-  const [hoverOrientation, setHoverOrientation] = useState(true)
+  
   
   useEffect(() => {
     if (props.index > 9 && String(props.index)[0] % 2 === 1 && props.index % 2 === 0)  setInitClass('odd')
@@ -13,24 +12,24 @@ function Tile(props) {
     if (props.index < 10 && props.index % 2 === 1) setInitClass('odd')
   },[])
 
-  const onHover = () => {
-    props.setCurrentTile(props.index)
-    selectHoverDirection()
-  }
+  // useEffect(() => {
+  //   selectHoverDirection()
+  // },[props.activeShip, props.hoverOrientation])
 
-  const selectHoverDirection = () => {
-    if (hoverOrientation) return props.setShipHover(battleshipHover.horizontalHover(props.currentTile, props.activeShip.length))
-    return props.setShipHover(battleshipHover.verticalHover(props.currentTile, props.activeShip.length))
+  const onHover = (e) => {
+    selectHoverDirection(e.currentTarget.getAttribute('index'), props.activeShip.length)
   }
+  console.log(props.isActive, props.index)
 
-  window.addEventListener("wheel", () => {
-    setHoverOrientation(!hoverOrientation)
-  })
+  const selectHoverDirection = (index, length) => {
+    if (props.hoverOrientation) return props.setShipHover(battleshipHover.horizontalHover(index, length))
+    return props.setShipHover(battleshipHover.verticalHover(index, length))
+  }
 
   return (
     <div 
-      style={{backgroundColor: props.shipHover.includes(props.index)?`${props.activeShip.color}`: ''}}
-      className={[initClass, 'tile', props.shipHover.includes(props.index)?'hover-active':''].join(' ')} 
+      style={{backgroundColor: props.isActive?`${props.activeShip.color}`: ''}}
+      className={[initClass, 'tile'].join(' ')} 
       index={props.index}
       onMouseEnter={onHover}
     >
@@ -40,4 +39,4 @@ function Tile(props) {
   )
 }
 
-export default Tile
+export default React.memo(Tile)

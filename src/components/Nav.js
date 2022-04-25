@@ -1,5 +1,3 @@
-import Logo from '../assets/images/battleship.png'
-
 function Nav() {
   return (
     <nav>
