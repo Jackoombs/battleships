@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/react-gh-pages/static/css/main.e475d052.css",
-    "main.js": "/react-gh-pages/static/js/main.6837ed34.js",
-    "static/js/787.f2bac129.chunk.js": "/react-gh-pages/static/js/787.f2bac129.chunk.js",
-    "index.html": "/react-gh-pages/index.html",
-    "main.e475d052.css.map": "/react-gh-pages/static/css/main.e475d052.css.map",
-    "main.6837ed34.js.map": "/react-gh-pages/static/js/main.6837ed34.js.map",
-    "787.f2bac129.chunk.js.map": "/react-gh-pages/static/js/787.f2bac129.chunk.js.map"
+    "main.css": "/battleships/static/css/main.e7e03f96.css",
+    "main.js": "/battleships/static/js/main.2df6e34d.js",
+    "static/js/787.f2bac129.chunk.js": "/battleships/static/js/787.f2bac129.chunk.js",
+    "index.html": "/battleships/index.html",
+    "main.e7e03f96.css.map": "/battleships/static/css/main.e7e03f96.css.map",
+    "main.2df6e34d.js.map": "/battleships/static/js/main.2df6e34d.js.map",
+    "787.f2bac129.chunk.js.map": "/battleships/static/js/787.f2bac129.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.e475d052.css",
-    "static/js/main.6837ed34.js"
+    "static/css/main.e7e03f96.css",
+    "static/js/main.2df6e34d.js"
   ]
 }
