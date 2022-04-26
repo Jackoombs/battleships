@@ -4,6 +4,8 @@ import battleshipHover from "../utils/battleshipHover"
 function Tile(props) {
 
   const [initClass, setInitClass] = useState('even')
+  const [isSelected, setIsSelected] = useState({selected:false})
+  
   
   
   useEffect(() => {
@@ -14,7 +16,7 @@ function Tile(props) {
 
   useEffect(() => {
     if (props.indexOnWheel !== null){
-    selectHoverDirection(props.indexOnWheel, props.activeShip.length)
+      selectHoverDirection(props.indexOnWheel, props.activeShip.length)
     }
     props.setIndexOnWheel(null)
   },[props.indexOnWheel])
@@ -22,6 +24,7 @@ function Tile(props) {
   const onHover = (e) => {
     selectHoverDirection(e.currentTarget.getAttribute('index'), props.activeShip.length)
   }
+
   const selectHoverDirection = (index, length) => {
     if (props.hoverOrientation) return props.setShipHover(battleshipHover.horizontalHover(index, length))
     return props.setShipHover(battleshipHover.verticalHover(index, length))

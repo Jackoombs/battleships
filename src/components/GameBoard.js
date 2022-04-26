@@ -7,17 +7,31 @@ function GameBoard(props) {
   const [shipHover, setShipHover] = useState([])
   const [hoverOrientation, setHoverOrientation] = useState(true)
   const [indexOnWheel, setIndexOnWheel] = useState(0)
+  const [selectedTiles, setSelectedTiles] = useState([])
+
+  const checkSelectedTiles = () => {
+    const result = selectedTiles.filter(element => shipHover.includes(element))
+    console.log(result.length)
+    if (!result.length) return true
+  }
+
+    console.log(selectedTiles)
+  
 
   useEffect(() => {
     setShipHover([])
   },[props.activeShip])
 
-
   return (
     <main className="game-board"
-          onWheel={(e) => {
-            setHoverOrientation(!hoverOrientation)
-    }}
+          onWheel={() => {setHoverOrientation(!hoverOrientation)}}
+          onMouseLeave={() => {
+            setShipHover([])
+          }}
+          onClick={() => {
+            const result = checkSelectedTiles()
+            if (result) setSelectedTiles(oldArray => oldArray.concat(shipHover))
+          } }
     >
       {[...Array(100)].map((e, i) => {
         return <Tile 
@@ -29,6 +43,7 @@ function GameBoard(props) {
                   hoverOrientation={hoverOrientation}
                   indexOnWheel={indexOnWheel}
                   setIndexOnWheel={setIndexOnWheel}
+
                 />            
       })}
     </main>
