@@ -94,3 +94,23 @@ main {
 .even {
   background-color: #184E77;
 }
+
+.carrier {
+  background-color: rgb(255, 89, 94);
+}
+
+.battleship {
+  background-color:rgb(255, 202, 58);
+}
+
+.cruiser {
+  background-color:rgb(138, 201, 38);
+}
+
+.destroyer {
+  background-color:rgb(226, 248, 241);
+}
+
+.submarine {
+  background-color:rgb(183, 158, 219);
+}

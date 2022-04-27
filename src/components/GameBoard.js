@@ -1,5 +1,4 @@
 import React, { useState } from 'react';
-import { useEffect } from 'react';
 import Tile from './Tile'
 
 function GameBoard(props) {
@@ -8,30 +7,24 @@ function GameBoard(props) {
   const [hoverOrientation, setHoverOrientation] = useState(true)
   const [indexOnWheel, setIndexOnWheel] = useState(0)
   const [selectedTiles, setSelectedTiles] = useState([])
+  const [validTiles, setValidTiles] = useState([])
 
-  const checkSelectedTiles = () => {
-    const result = selectedTiles.filter(element => shipHover.includes(element))
-    console.log(result.length)
-    if (!result.length) return true
+  const onClickValidCheck = () => {
+    const validArray = shipHover.filter(element => selectedTiles.includes(element))
+    if (!validArray.length) {
+      setSelectedTiles(oldArray => oldArray.concat(shipHover))
+      setValidTiles(shipHover)
+    }
   }
-
-    console.log(selectedTiles)
-  
-
-  useEffect(() => {
-    setShipHover([])
-  },[props.activeShip])
 
   return (
     <main className="game-board"
+          // set the hover direction on wheel
           onWheel={() => {setHoverOrientation(!hoverOrientation)}}
+          // remove ship on board when mouse leaves gameboard
           onMouseLeave={() => {
             setShipHover([])
           }}
-          onClick={() => {
-            const result = checkSelectedTiles()
-            if (result) setSelectedTiles(oldArray => oldArray.concat(shipHover))
-          } }
     >
       {[...Array(100)].map((e, i) => {
         return <Tile 
@@ -43,7 +36,8 @@ function GameBoard(props) {
                   hoverOrientation={hoverOrientation}
                   indexOnWheel={indexOnWheel}
                   setIndexOnWheel={setIndexOnWheel}
-
+                  onClickValidCheck={onClickValidCheck}
+                  isValid={validTiles.includes(i)?true:false}
                 />            
       })}
     </main>
