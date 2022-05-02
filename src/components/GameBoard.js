@@ -1,43 +1,41 @@
 import React, { useState } from 'react';
+import { useEffect } from 'react';
 import Tile from './Tile'
 
 function GameBoard(props) {
 
-  const [shipHover, setShipHover] = useState([])
-  const [hoverOrientation, setHoverOrientation] = useState(true)
-  const [indexOnWheel, setIndexOnWheel] = useState(0)
+  const [selectionPreview, setSelectionPreview] = useState([])
+  const [previewOrientation, setPreviewOrientation] = useState(true)
+  const [currentTile, setCurrentTile] = useState(0)
   const [selectedTiles, setSelectedTiles] = useState([])
-  const [validTiles, setValidTiles] = useState([])
+  const [validSelection, setValidSelection] = useState([])
 
-  const onClickValidCheck = () => {
-    const validArray = shipHover.filter(element => selectedTiles.includes(element))
-    if (!validArray.length) {
-      setSelectedTiles(oldArray => oldArray.concat(shipHover))
-      setValidTiles(shipHover)
-    }
-  }
+  useEffect(() => {
+    
+  },[props.activeShip])
 
   return (
     <main className="game-board"
-          // set the hover direction on wheel
-          onWheel={() => {setHoverOrientation(!hoverOrientation)}}
-          // remove ship on board when mouse leaves gameboard
           onMouseLeave={() => {
-            setShipHover([])
+            setSelectionPreview([])
           }}
     >
       {[...Array(100)].map((e, i) => {
         return <Tile 
-                  index={i} 
                   key={i}
+                  index={i}
                   activeShip={props.activeShip}
-                  isActive={shipHover.includes(i)?true:false}
-                  setShipHover={setShipHover}
-                  hoverOrientation={hoverOrientation}
-                  indexOnWheel={indexOnWheel}
-                  setIndexOnWheel={setIndexOnWheel}
-                  onClickValidCheck={onClickValidCheck}
-                  isValid={validTiles.includes(i)?true:false}
+                  selectionPreview={selectionPreview}
+                  setSelectionPreview={setSelectionPreview}
+                  previewOrientation={previewOrientation}
+                  setPreviewOrientation={setPreviewOrientation}
+                  currentTile={currentTile}
+                  setCurrentTile={setCurrentTile}
+                  selectedTiles={selectedTiles}
+                  setSelectedTiles={setSelectedTiles}
+                  validSelection={validSelection}
+                  setValidSelection={setValidSelection}
+                  changeShipToSelected={props.changeShipToSelected}
                 />            
       })}
     </main>

@@ -1,8 +1,8 @@
-const battleshipHover = (() => {
+const battleshipPreview = (() => {
 
-  const horizontalHover = (tileIndex, length) => {
+  const horizontalPreview = (tileIndex, length) => {
     const halfLength = Math.round((length - 1) / 2)
-    const hoverTile = tileIndex.toString().padStart(2, '0')
+    const previewTile = tileIndex.toString().padStart(2, '0')
     const initArrayTile = tileIndex-halfLength
     const initArray = []
     
@@ -15,11 +15,11 @@ const battleshipHover = (() => {
         paddedArray.unshift(paddedArray[0] - 1)
         return
       }
-      if (element[0] > hoverTile[0]) {
+      if (element[0] > previewTile[0]) {
         paddedArray.splice(index, 1)
         paddedArray.unshift(paddedArray[0] - 1)
       }
-      if (element[0] < hoverTile[0]) {
+      if (element[0] < previewTile[0]) {
         paddedArray[index] = 'deleted'
         paddedArray.push(+paddedArray[paddedArray.length-1] + 1)
       }
@@ -28,7 +28,7 @@ const battleshipHover = (() => {
     return paddedArray.filter(a => a !== 'deleted').map(Number)
   }
 
-  const verticalHover = (tileIndex, length) => {
+  const verticalPreview = (tileIndex, length) => {
     const halfLength = Math.round((length - 1) / 2)
     const initArrayTile = tileIndex-halfLength*10
     const array = []
@@ -49,9 +49,9 @@ const battleshipHover = (() => {
   }
 
   return {
-    horizontalHover,
-    verticalHover
+    horizontalPreview,
+    verticalPreview
   }
 })()
 
-export default battleshipHover
+export default battleshipPreview
