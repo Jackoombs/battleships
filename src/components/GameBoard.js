@@ -9,10 +9,13 @@ function GameBoard(props) {
   const [currentTile, setCurrentTile] = useState(0)
   const [selectedTiles, setSelectedTiles] = useState([])
   const [validSelection, setValidSelection] = useState([])
+  const [validOnHover, setValidOnHover] = useState(true)
 
   useEffect(() => {
-    
-  },[props.activeShip])
+    const result = selectionPreview.filter(element => selectedTiles.includes(element))
+    if (result.length) setValidOnHover(false)
+    else setValidOnHover(true)
+    },[selectionPreview])
 
   return (
     <main className="game-board"
@@ -36,6 +39,7 @@ function GameBoard(props) {
                   validSelection={validSelection}
                   setValidSelection={setValidSelection}
                   changeShipToSelected={props.changeShipToSelected}
+                  validOnHover={validOnHover}
                 />            
       })}
     </main>

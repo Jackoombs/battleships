@@ -55,9 +55,15 @@ function Tile(props) {
     }
   }
 
+  const setBackgroundOnHover = () => {
+    if (!props.validOnHover && props.selectionPreview.includes(props.index)) return 'grey'
+    if (props.selectionPreview.includes(props.index)) return props.activeShip.color
+    return ''
+  }
+
   return (
     <div 
-      style={{backgroundColor:props.selectionPreview.includes(props.index)?props.activeShip.color:'' }}
+      style={{backgroundColor:setBackgroundOnHover()}}
       className={[initClass, 'tile', isSelected.selected?isSelected.name.toLowerCase():''].join(' ')}
       onMouseEnter={passSelectionPreviewOnHover}
       onWheel={updateOrientationOnWheel}
