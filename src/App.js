@@ -24,12 +24,12 @@ function App() {
   useEffect(() => {
     const shipsNotPlaced = ships.filter(ship => ship.placed === false)
     if (shipsNotPlaced.length) setActiveShip(shipsNotPlaced[0])
-    else setActiveShip({placed:true})
+    else setActiveShip({name:false, selected:true})
   },[ships])
 
-  const changeShipToSelected = () => {
-    const updatedShip = activeShip
-    updatedShip.placed = true
+  const changeShipToSelected = (ship, boolean) => {
+    const updatedShip = ship
+    updatedShip.placed = boolean
     const index = ships.findIndex(ship => ship.name === activeShip.name)
     const newArray = [...ships]
     newArray[index] = updatedShip
@@ -44,7 +44,9 @@ function App() {
         setActiveShip={setActiveShip}
         ships={ships}/>
       <GameBoard 
+        ships={ships}
         activeShip={activeShip}
+        setActiveShip={setActiveShip}
         changeShipToSelected={changeShipToSelected}/>
     </div>
   );

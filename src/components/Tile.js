@@ -25,7 +25,15 @@ function Tile(props) {
   },[props.validSelection])
 
   useEffect(() => {
-    console.log(isSelected)
+    if (!props.activeShip.placed && isSelected.name === props.activeShip.name) {
+      setIsSelected({selected:false})
+      const selectedTileArray = props.selectedTiles
+      const index = selectedTileArray.findIndex(element => element===props.index)
+      selectedTileArray.splice(index, 1)
+      props.setSelectedTiles(selectedTileArray)
+      console.log(index, props.selectedTiles)
+    } 
+    
   },[props.activeShip])
 
   const selectionPreview = (index, length) => {
@@ -51,8 +59,20 @@ function Tile(props) {
       props.setCurrentTile(props.index)
       props.setSelectedTiles(array => array.concat(props.selectionPreview))
       props.setValidSelection(props.selectionPreview)
-      props.changeShipToSelected()
+      props.changeShipToSelected(props.activeShip, true)
     }
+  }
+
+  const changeActiveShipOnClick = () => {
+    if (!props.activeShip.name && isSelected.selected) {
+      const newActiveShip = props.ships.filter(ships => ships.name === isSelected.name)
+      props.changeShipToSelected(newActiveShip[0], false)
+    }
+  } 
+
+  const tileClickHandler = () => {
+    checkTilesValidOnClick()
+    changeActiveShipOnClick()
   }
 
   const setBackgroundOnHover = () => {
@@ -67,7 +87,7 @@ function Tile(props) {
       className={[initClass, 'tile', isSelected.selected?isSelected.name.toLowerCase():''].join(' ')}
       onMouseEnter={passSelectionPreviewOnHover}
       onWheel={updateOrientationOnWheel}
-      onClick={checkTilesValidOnClick}
+      onClick={tileClickHandler}
     >
       {props.index}
     </div>

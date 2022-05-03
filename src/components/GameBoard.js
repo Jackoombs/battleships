@@ -27,7 +27,9 @@ function GameBoard(props) {
         return <Tile 
                   key={i}
                   index={i}
+                  ships={props.ships}
                   activeShip={props.activeShip}
+                  setActiveShip={props.setActiveShip}
                   selectionPreview={selectionPreview}
                   setSelectionPreview={setSelectionPreview}
                   previewOrientation={previewOrientation}
