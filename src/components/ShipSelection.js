@@ -4,11 +4,15 @@ import Ship  from "./Ship";
 function ShipSelection(props) {
 
   const activeShipClickHandler = (id) => {
-    props.setActiveShip(props.ships[id])
+    const selectedShip = props.ships[id]
+    if (selectedShip.placed) {
+      props.changeShipSelectedStatus(selectedShip, false)
+    } 
+    props.setActiveShip(selectedShip)
   }
 
 return (
-  <div className="ship-selection">
+  <aside className="ship-selection">
     {props.ships.map((ship, i) => (
       <Ship 
       key={i}
@@ -20,7 +24,7 @@ return (
       activeShip={props.activeShip} 
       activeShipClickHandler={activeShipClickHandler}/>
     ))}
-  </div>
+  </aside>
 )
 }
 

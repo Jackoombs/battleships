@@ -12,18 +12,21 @@ function Tile(props) {
     if (props.index < 10 && props.index % 2 === 1) setInitClass('odd')
   },[])
 
+  // Update the UI when ship orientation or active ship changes.
   useEffect(() => {
     if (props.selectionPreview.length) {
       selectionPreview(props.currentTile, props.activeShip.length)
     }
   },[props.previewOrientation, props.activeShip])
 
+  // When the user tries to place a ship, if the selection is valid then update state.
   useEffect(() => {
   if (props.validSelection.includes(props.index)) {
-    setIsSelected({selected:true, name:props.activeShip.name})
+    setIsSelected({selected:true, name:props.activeShip.name, orientation: props.previewOrientation})
   }
   },[props.validSelection])
 
+  // If the active ship changes to an already placed ship then remove the ship from the board so it can be placed again.
   useEffect(() => {
     if (!props.activeShip.placed && isSelected.name === props.activeShip.name) {
       setIsSelected({selected:false})
@@ -31,17 +34,15 @@ function Tile(props) {
       const index = selectedTileArray.findIndex(element => element===props.index)
       selectedTileArray.splice(index, 1)
       props.setSelectedTiles(selectedTileArray)
-      console.log(index, props.selectedTiles)
+      
+      if (props.currentTile) {
+        selectionPreview(props.currentTile, props.activeShip.length)
+      } 
     } 
-    
   },[props.activeShip])
 
   const selectionPreview = (index, length) => {
-    if (props.previewOrientation) {
-      props.setSelectionPreview(battleSelectionPreview.horizontalPreview(index, length))
-    } else {
-      props.setSelectionPreview(battleSelectionPreview.verticalPreview(index, length))
-      }
+      props.setSelectionPreview(battleSelectionPreview(index, length, props.previewOrientation))
   }
 
   const passSelectionPreviewOnHover = () => {
@@ -59,14 +60,16 @@ function Tile(props) {
       props.setCurrentTile(props.index)
       props.setSelectedTiles(array => array.concat(props.selectionPreview))
       props.setValidSelection(props.selectionPreview)
-      props.changeShipToSelected(props.activeShip, true)
+      props.changeShipSelectedStatus(props.activeShip, true)
     }
   }
 
+  // if all ships have been placed, allow user replace a ship on click
   const changeActiveShipOnClick = () => {
     if (!props.activeShip.name && isSelected.selected) {
       const newActiveShip = props.ships.filter(ships => ships.name === isSelected.name)
-      props.changeShipToSelected(newActiveShip[0], false)
+      props.changeShipSelectedStatus(newActiveShip[0], false)
+      props.setPreviewOrientation(isSelected.orientation)
     }
   } 
 

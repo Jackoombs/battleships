@@ -27,14 +27,19 @@ function App() {
     else setActiveShip({name:false, selected:true})
   },[ships])
 
-  const changeShipToSelected = (ship, boolean) => {
+  const changeShipSelectedStatus = (ship, isPlaced) => {
     const updatedShip = ship
-    updatedShip.placed = boolean
-    const index = ships.findIndex(ship => ship.name === activeShip.name)
+    updatedShip.placed = isPlaced
+    const index = ships.findIndex(arrayShip => arrayShip.name === ship.name)
     const newArray = [...ships]
     newArray[index] = updatedShip
+    console.log(updatedShip,index)
     setShips(newArray)
   }
+
+  useEffect(() => {
+    console.log(activeShip)
+  },[activeShip])
 
   return (
     <div className="App">
@@ -42,12 +47,15 @@ function App() {
       <ShipSelection 
         activeShip={activeShip}
         setActiveShip={setActiveShip}
-        ships={ships}/>
+        ships={ships}
+        changeShipSelectedStatus={changeShipSelectedStatus}
+      />
       <GameBoard 
         ships={ships}
         activeShip={activeShip}
         setActiveShip={setActiveShip}
-        changeShipToSelected={changeShipToSelected}/>
+        changeShipSelectedStatus={changeShipSelectedStatus}
+      />
     </div>
   );
 }

@@ -18,9 +18,10 @@ function GameBoard(props) {
     },[selectionPreview])
 
   return (
-    <main className="game-board"
+    <main id="gameboard"
           onMouseLeave={() => {
             setSelectionPreview([])
+            setCurrentTile()
           }}
     >
       {[...Array(100)].map((e, i) => {
@@ -40,7 +41,7 @@ function GameBoard(props) {
                   setSelectedTiles={setSelectedTiles}
                   validSelection={validSelection}
                   setValidSelection={setValidSelection}
-                  changeShipToSelected={props.changeShipToSelected}
+                  changeShipSelectedStatus={props.changeShipSelectedStatus}
                   validOnHover={validOnHover}
                 />            
       })}

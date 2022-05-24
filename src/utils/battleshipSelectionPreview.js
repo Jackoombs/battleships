@@ -1,12 +1,12 @@
-const battleshipPreview = (() => {
+const battleshipPreview = (tileIndex, length, orientation) => {
+  const halfLength = Math.round((length - 1) / 2)
+  const initArray = []
 
-  const horizontalPreview = (tileIndex, length) => {
-    const halfLength = Math.round((length - 1) / 2)
+  if (orientation) {
     const previewTile = tileIndex.toString().padStart(2, '0')
-    const initArrayTile = tileIndex-halfLength
-    const initArray = []
-    
-    for (let i=0; i<length; i++) initArray.push(initArrayTile + i)
+    const initArrayTileHor = tileIndex-halfLength
+
+    for (let i=0; i<length; i++) initArray.push(initArrayTileHor + i)
     const paddedArray = initArray.map(n => n.toString().padStart(2, '0'))
 
     paddedArray.forEach((element, index) => {
@@ -28,30 +28,23 @@ const battleshipPreview = (() => {
     return paddedArray.filter(a => a !== 'deleted').map(Number)
   }
 
-  const verticalPreview = (tileIndex, length) => {
-    const halfLength = Math.round((length - 1) / 2)
-    const initArrayTile = tileIndex-halfLength*10
-    const array = []
+  if (!orientation) { 
+    const initArrayTileVer = tileIndex-halfLength*10
 
-    for (let i=0; i<length; i++) array.push(initArrayTile + i*10)
+    for (let i=0; i<length; i++) initArray.push(initArrayTileVer + i*10)
     
-    array.forEach((element, index) => {
+    initArray.forEach((element, index) => {
       if (element < 0) {
-        array.push(array[array.length-1] + 10)
-        array[index] = 'deleted'
+        initArray.push(initArray[initArray.length-1] + 10)
+        initArray[index] = 'deleted'
       }
       if (element > 99) {
-        array.splice(index, 1)
-        array.unshift(array[0] - 10)
+        initArray.splice(index, 1)
+        initArray.unshift(initArray[0] - 10)
       }
     });
-    return array.sort((a, b) => a - b).filter(a => a !== 'deleted')
+    return initArray.sort((a, b) => a - b).filter(a => a !== 'deleted')
   }
-
-  return {
-    horizontalPreview,
-    verticalPreview
-  }
-})()
+}
 
 export default battleshipPreview
