@@ -20,14 +20,14 @@ function SelectionPhaseTile(props) {
     }
   },[props.previewOrientation, props.activeShip])
 
-  // When the user tries to place a ship, if the selection is valid then update state.
+  // When the user places a ship, update the tile state to show the tiles are taken.
   useEffect(() => {
   if (props.validSelection.includes(props.index)) {
     setIsSelected({selected:true, name:props.activeShip.name, orientation: props.previewOrientation})
   }
   },[props.validSelection])
 
-  // If the active ship changes to an already placed ship then remove the ship from the board so it can be placed again.
+  // If the active ship changes to an already placed ship then remove the ship from the board so it can be re-placed.
   useEffect(() => {
     if (!props.activeShip.placed && isSelected.name === props.activeShip.name) {
       setIsSelected({selected:false})
@@ -52,6 +52,7 @@ function SelectionPhaseTile(props) {
     props.setPreviewOrientation(!props.previewOrientation)
   }
 
+  // If the selection is valid on click then change the activeShip select state and update the selected tiles.
   const checkTilesValidOnClick = () => {
     const filteredArray = props.selectionPreview.filter(element => props.selectedTiles.includes(element))
     if (!filteredArray.length) {
@@ -62,7 +63,7 @@ function SelectionPhaseTile(props) {
     }
   }
 
-  // if all ships have been placed, allow user re-place a ship on click.
+  // If all ships have been placed, allow the user to re-place by clicking on ship.
   const changeActiveShipOnClick = () => {
     if (!props.activeShip.name && isSelected.selected) {
       const newActiveShip = props.ships.filter(ships => ships.name === isSelected.name)
@@ -82,6 +83,7 @@ function SelectionPhaseTile(props) {
     return ''
   }
 
+  // When the user starts the game, the placement of ships is saved to state in App
   useEffect(() => {
     return () => {
       if (isSelected.selected) {
