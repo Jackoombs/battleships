@@ -13,7 +13,7 @@ function App() {
     return{name, color, length, placed:false}
   }
 
-  const createUserShip = (name, length) => {
+  const createplayerShip = (name, length) => {
     return{name, length, tileIndexs: []}
   }
 
@@ -29,12 +29,12 @@ function App() {
   const [playerTurn, setPlayerTurn] = useState(true)
   const [activeShip, setActiveShip] = useState(ships[0])
   const [computerShips, setComputerShips] = useState()
-  const [userShips, setUserShips] = useState([
-    createUserShip('Carrier', 5),
-    createUserShip('Battleship', 4),
-    createUserShip('Cruiser', 3),
-    createUserShip('Submarine', 3),
-    createUserShip('Destroyer', 2) 
+  const [playerShips, setPlayerShips] = useState([
+    createplayerShip('Carrier', 5),
+    createplayerShip('Battleship', 4),
+    createplayerShip('Cruiser', 3),
+    createplayerShip('Submarine', 3),
+    createplayerShip('Destroyer', 2) 
   ])
   const [isWinner, setIsWinner] = useState()
   
@@ -77,11 +77,12 @@ function App() {
         setActiveShip={setActiveShip}
         changeShipSelectedStatus={changeShipSelectedStatus}
         battleActive={battleActive}
-        userShips={userShips}
-        setUserShips={setUserShips}
+        playerShips={playerShips}
+        setPlayerShips={setPlayerShips}
         computerShips={computerShips}
         setComputerShips={setComputerShips}
         setIsWinner={setIsWinner}
+        playerTurn={playerTurn}
         setPlayerTurn={setPlayerTurn}
       />
       <Controls

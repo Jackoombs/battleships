@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { useEffect } from 'react';
 import SelectionPhaseTile from './SelectonPhaseTile';
 import ComputerBattleTile from './ComputerBattleTile';
+import PlayerBattleTile from './PlayerBattleTile';
 
 function GameBoard(props) {
 
@@ -12,8 +13,8 @@ function GameBoard(props) {
   const [validSelection, setValidSelection] = useState([])
   const [validOnHover, setValidOnHover] = useState(true)
 
-  const [userHit, setUserHit] = useState([])
-  const [userMissed, setUserMissed] = useState([])
+  const [playerHit, setPlayerHit] = useState([])
+  const [playerMissed, setPlayerMissed] = useState([])
   const [computerHit, setComputerHit] = useState([])
   const [computerMissed, setComputerMissed] = useState([])
 
@@ -30,8 +31,8 @@ function GameBoard(props) {
   },[props.battleActive])
 
   const checkWin = () => {
-    if (computerHit.length === 17) setIsWinner('player')
-    if (userHit.length === 17) setIsWinner('player')
+    if (computerHit.length === 17) props.setIsWinner('player')
+    if (playerHit.length === 17) props.setIsWinner('player')
   }
 
   return (
@@ -63,12 +64,12 @@ function GameBoard(props) {
             setValidSelection={setValidSelection}
             changeShipSelectedStatus={props.changeShipSelectedStatus}
             validOnHover={validOnHover}
-            userShips={props.userShips}
-            setUserShips={props.setUserShips}
+            playerShips={props.playerShips}
+            setPlayerShips={props.setPlayerShips}
             battleActive={props.battleActive}
           /> 
         )           
-      }):
+      }):props.playerTurn?
       [...Array(100)].map((e, i) => {
         return (
           <ComputerBattleTile 
@@ -83,8 +84,22 @@ function GameBoard(props) {
             setPlayerTurn={props.setPlayerTurn}
           />
       )
+      }):
+      [...Array(100)].map((e, i) => {
+        return (
+          <PlayerBattleTile 
+            key={i}
+            index={i}
+            playerHit={playerHit}
+            setPlayerHit={setPlayerHit}
+            playerMissed={playerMissed}
+            setPlayerMissed={setPlayerMissed}
+            playerShips={props.playerShips}
+            setPlayerShips={props.setPlayerShips}
+            setPlayerTurn={props.setPlayerTurn}
+          />
+      )
       })
-      
       
       }
     </main>

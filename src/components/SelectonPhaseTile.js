@@ -87,10 +87,10 @@ function SelectionPhaseTile(props) {
   useEffect(() => {
     return () => {
       if (isSelected.selected) {
-        const shipIndex = props.userShips.findIndex(ship => ship.name === isSelected.name)
-        const newUserShips = [...props.userShips]
-        newUserShips[shipIndex].tileIndexs.push(props.index)
-        props.setUserShips(newUserShips)
+        const shipIndex = props.playerShips.findIndex(ship => ship.name === isSelected.name)
+        const newPlayerShips = [...props.playerShips]
+        newPlayerShips[shipIndex].tileIndexs.push(props.index)
+        props.setPlayerShips(newPlayerShips)
       }
     }
   },[isSelected])
