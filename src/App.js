@@ -82,6 +82,7 @@ function App() {
         computerShips={computerShips}
         setComputerShips={setComputerShips}
         setIsWinner={setIsWinner}
+        setPlayerTurn={setPlayerTurn}
       />
       <Controls
         ships={ships}

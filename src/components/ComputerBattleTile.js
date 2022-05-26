@@ -30,8 +30,12 @@ function ComputerBattleTile(props) {
 
   const onClickHandler = () => {
     const isHit = checkHit(props.index, props.computerShips)
-    if (isHit) props.setComputerHit(oldArray => [...oldArray, props.index])
-    else props.setComputerMissed(oldArray => [...oldArray, props.index])
+    if (isHit) props.setComputerHit(oldArray => [...oldArray, props.index]);
+    else props.setComputerMissed(oldArray => [...oldArray, props.index]);
+    
+    setTimeout(() => {
+      props.setPlayerTurn(playerTurn => !playerTurn)
+    }, 3000);
   }
 
   return (

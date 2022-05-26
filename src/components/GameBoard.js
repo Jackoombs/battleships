@@ -80,6 +80,7 @@ function GameBoard(props) {
             setComputerMissed={setComputerMissed}
             computerShips={props.computerShips}
             setComputerShips={props.setComputerShips}
+            setPlayerTurn={props.setPlayerTurn}
           />
       )
       })
