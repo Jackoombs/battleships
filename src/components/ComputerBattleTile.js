@@ -19,6 +19,9 @@ function ComputerBattleTile(props) {
     }
   }
 
+  const setHoverEffect = () => {
+    return !hitOrMiss && hover  && !props.disableClick? 'select-target' : ''
+  }
 
   useEffect(() => {
     if (props.disableClick === props.index) {
@@ -29,17 +32,13 @@ function ComputerBattleTile(props) {
       setTimeout(() => {
         props.setDisableClick(false)
         props.setPlayerTurn(playerTurn => !playerTurn)
-      }, 3000);
+      }, 2000);
     }
   },[props.disableClick])
 
   useEffect(() => {
-    if (props.computerHit.includes(props.index)) {
-      setHitOrMiss('hit')
-    }
-    if (props.computerMissed.includes(props.index)) {
-      setHitOrMiss('miss')
-    }
+    if (props.computerHit.includes(props.index)) setHitOrMiss('hit')
+    if (props.computerMissed.includes(props.index)) setHitOrMiss('miss')
   },[props.computerMissed, props.computerHit])
 
   const clickHandler = () => {
@@ -48,8 +47,7 @@ function ComputerBattleTile(props) {
 
   return (
     <div 
-      className={`${initClass} tile ${hitOrMiss?hitOrMiss:''}`}
-      style={{backgroundColor:hover?'black':''}}
+      className={`${initClass} tile ${hitOrMiss?hitOrMiss:''} ${setHoverEffect()}`}
       onMouseEnter={() => {setHover(true)}}
       onMouseLeave={() => {setHover(false)}}
       onClick={!props.disableClick&&!hitOrMiss?clickHandler:undefined}>

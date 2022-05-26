@@ -4,9 +4,8 @@ import { useEffect } from "react";
 function PlayerBattleTile(props) {
 
   const [initClass, setInitClass] = useState('even')
-  const [hover, setHover] = useState(false)
-  const [hitMissClass, setHitMissClass] = useState(false)
-  const [clicked, setClicked] = useState(false)
+  const [isShip, setIsShip]= useState('')
+  const [hitOrMiss, setHitOrMiss] = useState(false)
   
 
   useEffect(() => {
@@ -15,13 +14,20 @@ function PlayerBattleTile(props) {
     if (props.index < 10 && props.index % 2 === 1) setInitClass('odd')
   },[])
 
+  useEffect(() => {
+    for (const ship of props.playerShips) {
+      if (ship.tileIndexs.includes(props.index)) setIsShip(ship.name.toLowerCase())
+    } 
+  },[])
+
+  useEffect(() => {
+    if (props.playerHit.includes(props.index)) setHitOrMiss('hit')
+    if (props.playerMissed.includes(props.index)) setHitOrMiss('miss')
+  },[props.playerMissed, props.playerHit])
+
   return (
     <div 
-      className={`${initClass} tile ${hitMissClass?hitMissClass:''}`}
-      style={{backgroundColor:hover?'black':''}}
-      onMouseEnter={() => {setHover(true)}}
-      onMouseLeave={() => {setHover(false)}}
-      // onClick={!clicked?onClickHandler:''}
+      className={`${initClass} tile ${hitOrMiss?hitOrMiss:''} ${isShip}`}
     >
       {props.index}
     </div>

@@ -138,3 +138,7 @@ h3 {
 .control-btn {
   font-size: 4rem;
 }
+
+.select-target {
+  background-color: gold;
+}

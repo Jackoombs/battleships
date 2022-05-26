@@ -34,11 +34,40 @@ function GameBoard(props) {
 
   useEffect(() => {
     checkWin()
+      if (!props.playerTurn) {
+        setTimeout(() => {
+          computerTurn()
+        }, 2000);
+      }
   },[props.playerTurn])
 
   const checkWin = () => {
     if (computerHit.length === 17) props.setIsWinner('player')
     if (playerHit.length === 17) props.setIsWinner('player')
+  }
+
+  const computerTarget = () => {
+    let index = null 
+    while (index===null || playerHit.includes(index) || playerMissed.includes(index)) {
+      index = Math.floor(Math.random() * (100));
+    }
+    return index
+  }
+
+  const checkHit = (index, ships) => {
+    for (const ship of ships) {
+      if (ship.tileIndexs.includes(index)) return true
+    }
+  }
+
+  const computerTurn = () => {
+    const target = computerTarget()
+    const isHit = checkHit(target, props.playerShips)
+    if (isHit) setPlayerHit(oldArray => [...oldArray, target]);
+    else setPlayerMissed(oldArray => [...oldArray, target]);
+    setTimeout(() => {
+      props.setPlayerTurn(playerTurn => !playerTurn)
+    }, 2000);
   }
 
   return (
