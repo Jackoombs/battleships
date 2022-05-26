@@ -1,7 +1,7 @@
 import React, { useEffect, useState} from "react"
 import battleSelectionPreview from "../utils/battleshipSelectionPreview"
 
-function Tile(props) {
+function SelectionPhaseTile(props) {
 
   const [initClass, setInitClass] = useState('even')
   const [isSelected, setIsSelected] = useState({selected:false})
@@ -10,6 +10,7 @@ function Tile(props) {
     if (props.index > 9 && String(props.index)[0] % 2 === 1 && props.index % 2 === 0)  setInitClass('odd')
     if (props.index > 9 && String(props.index)[0] % 2 === 0 && props.index % 2 === 1) setInitClass('odd')
     if (props.index < 10 && props.index % 2 === 1) setInitClass('odd')
+    console.log(isSelected)
   },[])
 
   // Update the UI when ship orientation or active ship changes.
@@ -30,10 +31,7 @@ function Tile(props) {
   useEffect(() => {
     if (!props.activeShip.placed && isSelected.name === props.activeShip.name) {
       setIsSelected({selected:false})
-      const selectedTileArray = props.selectedTiles
-      const index = selectedTileArray.findIndex(element => element===props.index)
-      selectedTileArray.splice(index, 1)
-      props.setSelectedTiles(selectedTileArray)
+      props.setSelectedTiles(oldArray => oldArray.filter(element => element!==props.index))
       
       if (props.currentTile) {
         selectionPreview(props.currentTile, props.activeShip.length)
@@ -64,7 +62,7 @@ function Tile(props) {
     }
   }
 
-  // if all ships have been placed, allow user replace a ship on click
+  // if all ships have been placed, allow user re-place a ship on click.
   const changeActiveShipOnClick = () => {
     if (!props.activeShip.name && isSelected.selected) {
       const newActiveShip = props.ships.filter(ships => ships.name === isSelected.name)
@@ -84,6 +82,17 @@ function Tile(props) {
     return ''
   }
 
+  useEffect(() => {
+    return () => {
+      if (isSelected.selected) {
+        const shipIndex = props.userShips.findIndex(ship => ship.name === isSelected.name)
+        const newUserShips = [...props.userShips]
+        newUserShips[shipIndex].tileIndexs.push(props.index)
+        props.setUserShips(newUserShips)
+      }
+    }
+  },[isSelected])
+
   return (
     <div 
       style={{backgroundColor:setBackgroundOnHover()}}
@@ -98,4 +107,4 @@ function Tile(props) {
   )
 }
 
-export default Tile
+export default SelectionPhaseTile

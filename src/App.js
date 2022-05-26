@@ -4,11 +4,17 @@ import GameBoard from './components/GameBoard'
 import ShipSelection from './components/ShipSelection';
 import { useState } from 'react';
 import { useEffect } from 'react';
+import Controls from './components/Controls';
+import generateShips from './utils/generateShips';
 
 function App() {
 
   const createShip = (name, color, length) => {
     return{name, color, length, placed:false}
+  }
+
+  const createUserShip = (name, length) => {
+    return{name, length, tileIndexs: []}
   }
 
   const [ships, setShips] = useState([
@@ -19,7 +25,26 @@ function App() {
     createShip('Destroyer', 'rgb(183, 158, 219)', 2) 
   ])
 
+  const[battleActive, setBattleActive] = useState(false)
+  const [playerTurn, setPlayerTurn] = useState(true)
   const [activeShip, setActiveShip] = useState(ships[0])
+  const [computerShips, setComputerShips] = useState()
+  const [userShips, setUserShips] = useState([
+    createUserShip('Carrier', 5),
+    createUserShip('Battleship', 4),
+    createUserShip('Cruiser', 3),
+    createUserShip('Submarine', 3),
+    createUserShip('Destroyer', 2) 
+  ])
+  const [isWinner, setIsWinner] = useState()
+  
+  useEffect(() => {
+    setComputerShips(generateShips)
+  },[battleActive])
+
+  useEffect(() => {
+    console.log(computerShips)
+  },[computerShips])
 
   useEffect(() => {
     const shipsNotPlaced = ships.filter(ship => ship.placed === false)
@@ -33,13 +58,8 @@ function App() {
     const index = ships.findIndex(arrayShip => arrayShip.name === ship.name)
     const newArray = [...ships]
     newArray[index] = updatedShip
-    console.log(updatedShip,index)
     setShips(newArray)
   }
-
-  useEffect(() => {
-    console.log(activeShip)
-  },[activeShip])
 
   return (
     <div className="App">
@@ -48,6 +68,7 @@ function App() {
         activeShip={activeShip}
         setActiveShip={setActiveShip}
         ships={ships}
+
         changeShipSelectedStatus={changeShipSelectedStatus}
       />
       <GameBoard 
@@ -55,6 +76,17 @@ function App() {
         activeShip={activeShip}
         setActiveShip={setActiveShip}
         changeShipSelectedStatus={changeShipSelectedStatus}
+        battleActive={battleActive}
+        userShips={userShips}
+        setUserShips={setUserShips}
+        computerShips={computerShips}
+        setComputerShips={setComputerShips}
+        setIsWinner={setIsWinner}
+      />
+      <Controls
+        ships={ships}
+        battleActive={battleActive}
+        setBattleActive={setBattleActive}
       />
     </div>
   );
