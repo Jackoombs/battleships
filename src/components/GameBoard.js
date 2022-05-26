@@ -13,10 +13,12 @@ function GameBoard(props) {
   const [validSelection, setValidSelection] = useState([])
   const [validOnHover, setValidOnHover] = useState(true)
 
+  const [disableClick, setDisableClick] = useState(false)
   const [playerHit, setPlayerHit] = useState([])
   const [playerMissed, setPlayerMissed] = useState([])
   const [computerHit, setComputerHit] = useState([])
   const [computerMissed, setComputerMissed] = useState([])
+
 
   useEffect(() => {
     const result = selectionPreview.filter(element => selectedTiles.includes(element))
@@ -29,6 +31,10 @@ function GameBoard(props) {
     setSelectedTiles([])
     setCurrentTile(0)
   },[props.battleActive])
+
+  useEffect(() => {
+    checkWin()
+  },[props.playerTurn])
 
   const checkWin = () => {
     if (computerHit.length === 17) props.setIsWinner('player')
@@ -82,6 +88,8 @@ function GameBoard(props) {
             computerShips={props.computerShips}
             setComputerShips={props.setComputerShips}
             setPlayerTurn={props.setPlayerTurn}
+            disableClick={disableClick}
+            setDisableClick={setDisableClick}
           />
       )
       }):

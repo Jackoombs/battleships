@@ -5,7 +5,7 @@ function ComputerBattleTile(props) {
 
   const [initClass, setInitClass] = useState('even')
   const [hover, setHover] = useState(false)
-  const [hitMissClass, setHitMissClass] = useState(false)
+  const [hitOrMiss, setHitOrMiss] = useState(false)
 
   useEffect(() => {
     if (props.index > 9 && String(props.index)[0] % 2 === 1 && props.index % 2 === 0)  setInitClass('odd')
@@ -19,32 +19,40 @@ function ComputerBattleTile(props) {
     }
   }
 
+
+  useEffect(() => {
+    if (props.disableClick === props.index) {
+      const isHit = checkHit(props.index, props.computerShips)
+      if (isHit) props.setComputerHit(oldArray => [...oldArray, props.index]);
+      else props.setComputerMissed(oldArray => [...oldArray, props.index]);
+      
+      setTimeout(() => {
+        props.setDisableClick(false)
+        props.setPlayerTurn(playerTurn => !playerTurn)
+      }, 3000);
+    }
+  },[props.disableClick])
+
   useEffect(() => {
     if (props.computerHit.includes(props.index)) {
-      setHitMissClass('hit')
+      setHitOrMiss('hit')
     }
     if (props.computerMissed.includes(props.index)) {
-      setHitMissClass('miss')
+      setHitOrMiss('miss')
     }
   },[props.computerMissed, props.computerHit])
 
-  const onClickHandler = () => {
-    const isHit = checkHit(props.index, props.computerShips)
-    if (isHit) props.setComputerHit(oldArray => [...oldArray, props.index]);
-    else props.setComputerMissed(oldArray => [...oldArray, props.index]);
-    
-    setTimeout(() => {
-      props.setPlayerTurn(playerTurn => !playerTurn)
-    }, 3000);
+  const clickHandler = () => {
+    props.setDisableClick(props.index)
   }
 
   return (
     <div 
-      className={`${initClass} tile ${hitMissClass?hitMissClass:''}`}
+      className={`${initClass} tile ${hitOrMiss?hitOrMiss:''}`}
       style={{backgroundColor:hover?'black':''}}
       onMouseEnter={() => {setHover(true)}}
       onMouseLeave={() => {setHover(false)}}
-      onClick={onClickHandler}>
+      onClick={!props.disableClick&&!hitOrMiss?clickHandler:undefined}>
       {props.index}
     </div>
   )

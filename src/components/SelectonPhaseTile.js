@@ -10,7 +10,6 @@ function SelectionPhaseTile(props) {
     if (props.index > 9 && String(props.index)[0] % 2 === 1 && props.index % 2 === 0)  setInitClass('odd')
     if (props.index > 9 && String(props.index)[0] % 2 === 0 && props.index % 2 === 1) setInitClass('odd')
     if (props.index < 10 && props.index % 2 === 1) setInitClass('odd')
-    console.log(isSelected)
   },[])
 
   // Update the UI when ship orientation or active ship changes.

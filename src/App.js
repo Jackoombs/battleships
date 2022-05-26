@@ -43,10 +43,6 @@ function App() {
   },[battleActive])
 
   useEffect(() => {
-    console.log(computerShips)
-  },[computerShips])
-
-  useEffect(() => {
     const shipsNotPlaced = ships.filter(ship => ship.placed === false)
     if (shipsNotPlaced.length) setActiveShip(shipsNotPlaced[0])
     else setActiveShip({name:false, selected:true})
