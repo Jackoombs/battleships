@@ -10,7 +10,7 @@ function TurnInfo(props) {
 
   const turnDescription = () => {
     if (!props.battleActive) return "Decide where to place your ships."
-    if (props.playerTurn) return "Decide where you'd like to fire your artillery" 
+    if (props.playerTurn) return "Decide where to fire your artillery." 
     return "It's the enemies turn to try and sink you."
   }
 
