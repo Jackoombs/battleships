@@ -26,10 +26,7 @@ function PlayerBattleTile(props) {
   },[props.playerMissed, props.playerHit])
 
   return (
-    <div 
-      className={`${initClass} tile ${hitOrMiss?hitOrMiss:''} ${isShip}`}
-    >
-      {props.index}
+    <div className={`${initClass} tile ${hitOrMiss?hitOrMiss:''} ${isShip}`}>
     </div>
   )
 }

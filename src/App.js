@@ -25,6 +25,7 @@ function App() {
     createShip('Destroyer', 'rgb(183, 158, 219)', 2) 
   ])
 
+  const [hitMissStatus, setHitMissStatus] = useState(false)
   const [endPlanningPhase, setEndPlanningPhase] = useState(false)
   const [battleActive, setBattleActive] = useState(false)
   const [playerTurn, setPlayerTurn] = useState(true)
@@ -68,6 +69,7 @@ function App() {
           battleActive={battleActive}
           setBattleActive={setBattleActive}
           playerTurn={playerTurn}
+          hitMissStatus={hitMissStatus}
         />
         <GameBoard 
           ships={ships}
@@ -84,6 +86,7 @@ function App() {
           playerTurn={playerTurn}
           setPlayerTurn={setPlayerTurn}
           endPlanningPhase={endPlanningPhase}
+          setHitMissStatus={setHitMissStatus}
         />
         <ShipSelection 
           activeShip={activeShip}

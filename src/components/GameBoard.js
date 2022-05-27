@@ -60,13 +60,23 @@ function GameBoard(props) {
     }
   }
 
+  const updateHitMissStatus = (isHit) => {
+    if (isHit === 'reset') return props.setHitMissStatus(false)
+    if (isHit) props.setHitMissStatus("hit")
+    else props.setHitMissStatus("miss")
+  }
+
   const computerTurn = () => {
     const target = computerTarget()
     const isHit = checkHit(target, props.playerShips)
+    updateHitMissStatus(isHit)
+
     if (isHit) setPlayerHit(oldArray => [...oldArray, target]);
     else setPlayerMissed(oldArray => [...oldArray, target]);
+
     setTimeout(() => {
       props.setPlayerTurn(playerTurn => !playerTurn)
+      updateHitMissStatus('reset')
     }, 2000);
   }
 
@@ -121,6 +131,7 @@ function GameBoard(props) {
             setPlayerTurn={props.setPlayerTurn}
             disableClick={disableClick}
             setDisableClick={setDisableClick}
+            updateHitMissStatus={updateHitMissStatus}
           />
       )
       }):

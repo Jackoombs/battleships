@@ -26,12 +26,15 @@ function ComputerBattleTile(props) {
   useEffect(() => {
     if (props.disableClick === props.index) {
       const isHit = checkHit(props.index, props.computerShips)
+      props.updateHitMissStatus(isHit)
+      
       if (isHit) props.setComputerHit(oldArray => [...oldArray, props.index]);
       else props.setComputerMissed(oldArray => [...oldArray, props.index]);
       
       setTimeout(() => {
         props.setDisableClick(false)
         props.setPlayerTurn(playerTurn => !playerTurn)
+        props.updateHitMissStatus('reset')
       }, 2000);
     }
   },[props.disableClick])
@@ -51,7 +54,7 @@ function ComputerBattleTile(props) {
       onMouseEnter={() => {setHover(true)}}
       onMouseLeave={() => {setHover(false)}}
       onClick={!props.disableClick&&!hitOrMiss?clickHandler:undefined}>
-      {props.index}
+      {/* {props.index} */}
     </div>
   )
 }

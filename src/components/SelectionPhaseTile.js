@@ -103,7 +103,6 @@ function SelectionPhaseTile(props) {
       onWheel={updateOrientationOnWheel}
       onClick={tileClickHandler}
     >
-      {props.index}
     </div>
       
   )
