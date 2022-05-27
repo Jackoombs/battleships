@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { useEffect } from 'react';
-import SelectionPhaseTile from './SelectonPhaseTile';
+import SelectionPhaseTile from './SelectionPhaseTile';
 import ComputerBattleTile from './ComputerBattleTile';
 import PlayerBattleTile from './PlayerBattleTile';
 
@@ -102,6 +102,8 @@ function GameBoard(props) {
             playerShips={props.playerShips}
             setPlayerShips={props.setPlayerShips}
             battleActive={props.battleActive}
+            setBattleActive={props.setBattleActive}
+            endPlanningPhase={props.endPlanningPhase}
           /> 
         )           
       }):props.playerTurn?

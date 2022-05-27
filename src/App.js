@@ -4,7 +4,7 @@ import GameBoard from './components/GameBoard'
 import ShipSelection from './components/ShipSelection';
 import { useState } from 'react';
 import { useEffect } from 'react';
-import Controls from './components/Controls';
+import GameInfo from './components/GameInfo';
 import generateShips from './utils/generateShips';
 
 function App() {
@@ -14,7 +14,7 @@ function App() {
   }
 
   const createPlayerShip = (name, color, length) => {
-    return{name, color, length, tileIndexs: []}
+    return{name, color, length, tileIndexs: [], hits:0}
   }
 
   const [ships, setShips] = useState([
@@ -25,7 +25,8 @@ function App() {
     createShip('Destroyer', 'rgb(183, 158, 219)', 2) 
   ])
 
-  const[battleActive, setBattleActive] = useState(false)
+  const [endPlanningPhase, setEndPlanningPhase] = useState(false)
+  const [battleActive, setBattleActive] = useState(false)
   const [playerTurn, setPlayerTurn] = useState(true)
   const [activeShip, setActiveShip] = useState(ships[0])
   const [computerShips, setComputerShips] = useState()
@@ -60,32 +61,38 @@ function App() {
   return (
     <div className="App">
       <Nav />
-      <ShipSelection 
-        activeShip={activeShip}
-        setActiveShip={setActiveShip}
-        ships={ships}
+      <section className='content'>
+        <GameInfo
+          ships={ships}
+          setEndPlanningPhase={setEndPlanningPhase}
+          battleActive={battleActive}
+          setBattleActive={setBattleActive}
+          playerTurn={playerTurn}
+        />
+        <GameBoard 
+          ships={ships}
+          activeShip={activeShip}
+          setActiveShip={setActiveShip}
+          changeShipSelectedStatus={changeShipSelectedStatus}
+          battleActive={battleActive}
+          setBattleActive={setBattleActive}
+          playerShips={playerShips}
+          setPlayerShips={setPlayerShips}
+          computerShips={computerShips}
+          setComputerShips={setComputerShips}
+          setIsWinner={setIsWinner}
+          playerTurn={playerTurn}
+          setPlayerTurn={setPlayerTurn}
+          endPlanningPhase={endPlanningPhase}
+        />
+        <ShipSelection 
+          activeShip={activeShip}
+          setActiveShip={setActiveShip}
+          ships={ships}
 
-        changeShipSelectedStatus={changeShipSelectedStatus}
-      />
-      <GameBoard 
-        ships={ships}
-        activeShip={activeShip}
-        setActiveShip={setActiveShip}
-        changeShipSelectedStatus={changeShipSelectedStatus}
-        battleActive={battleActive}
-        playerShips={playerShips}
-        setPlayerShips={setPlayerShips}
-        computerShips={computerShips}
-        setComputerShips={setComputerShips}
-        setIsWinner={setIsWinner}
-        playerTurn={playerTurn}
-        setPlayerTurn={setPlayerTurn}
-      />
-      <Controls
-        ships={ships}
-        battleActive={battleActive}
-        setBattleActive={setBattleActive}
-      />
+          changeShipSelectedStatus={changeShipSelectedStatus}
+        />
+      </section>  
     </div>
   );
 }
