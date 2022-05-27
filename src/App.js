@@ -60,6 +60,10 @@ function App() {
     setShips(newArray)
   }
 
+  useEffect(() => {
+    console.log(hitMissStatus)
+  },[hitMissStatus])
+
   const resetGame = () => {
     setShips([
       createShip('Carrier', 'rgb(255, 89, 94)', 5),
@@ -78,7 +82,7 @@ function App() {
     setHitMissStatus(false)
     setEndPlanningPhase(false)
     setBattleActive(false)
-    setPlayerTurn(false)
+    setPlayerTurn(true)
     setActiveShip(ships[0])
     setComputerShips()
     setIsWinner(false)

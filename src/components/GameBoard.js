@@ -33,12 +33,14 @@ function GameBoard(props) {
   },[props.battleActive])
 
   useEffect(() => {
+    if (props.battleActive) {
     checkWin()
       if (!props.playerTurn) {
         setTimeout(() => {
           computerTurn()
         }, 2000);
       }
+    }
   },[props.playerTurn])
 
   const checkWin = () => {
