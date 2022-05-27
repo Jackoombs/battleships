@@ -6,6 +6,7 @@ import { useState } from 'react';
 import { useEffect } from 'react';
 import GameInfo from './components/GameInfo';
 import generateShips from './utils/generateShips';
+import ResultModal from './components/ResultModal';
 
 function App() {
 
@@ -38,7 +39,7 @@ function App() {
     createPlayerShip('Submarine','rgb(226, 248, 241)', 3),
     createPlayerShip('Destroyer', 'rgb(183, 158, 219)', 2) 
   ])
-  const [isWinner, setIsWinner] = useState()
+  const [isWinner, setIsWinner] = useState(true)
   
   useEffect(() => {
     setComputerShips(generateShips)
@@ -57,6 +58,30 @@ function App() {
     const newArray = [...ships]
     newArray[index] = updatedShip
     setShips(newArray)
+  }
+
+  const resetGame = () => {
+    setShips([
+      createShip('Carrier', 'rgb(255, 89, 94)', 5),
+      createShip('Battleship', 'rgb(255, 202, 58)', 4),
+      createShip('Cruiser', 'rgb(138, 201, 38)', 3),
+      createShip('Submarine','rgb(226, 248, 241)', 3),
+      createShip('Destroyer', 'rgb(183, 158, 219)', 2) 
+    ])
+    setPlayerShips([
+      createPlayerShip('Carrier', 'rgb(255, 89, 94)', 5),
+      createPlayerShip('Battleship', 'rgb(255, 202, 58)', 4),
+      createPlayerShip('Cruiser', 'rgb(138, 201, 38)', 3),
+      createPlayerShip('Submarine','rgb(226, 248, 241)', 3),
+      createPlayerShip('Destroyer', 'rgb(183, 158, 219)', 2) 
+    ])
+    setHitMissStatus(false)
+    setEndPlanningPhase(false)
+    setBattleActive(false)
+    setPlayerTurn(false)
+    setActiveShip(ships[0])
+    setComputerShips()
+    setIsWinner(false)
   }
 
   return (
@@ -92,10 +117,16 @@ function App() {
           activeShip={activeShip}
           setActiveShip={setActiveShip}
           ships={ships}
-
           changeShipSelectedStatus={changeShipSelectedStatus}
         />
       </section>  
+
+      {isWinner?
+      <ResultModal 
+        playerTurn={playerTurn}
+        resetGame={resetGame}
+      />:''}
+
     </div>
   );
 }

@@ -128,19 +128,19 @@ h3 {
 }
 
 .carrier {
-  background-color: rgb(255, 89, 94);
+  background-color: rgb(247, 59, 66);
 }
 
 .battleship {
-  background-color:rgb(240, 180, 15);
+  background-color:rgb(255, 187, 0);
 }
 
 .cruiser {
-  background-color:rgb(138, 201, 38);
+  background-color:rgb(147, 228, 18);
 }
 
 .destroyer {
-  background-color:rgb(153, 109, 216);
+  background-color:rgb(173, 114, 255);
 }
 
 .submarine {
@@ -184,5 +184,40 @@ h3 {
   font-size: 4rem;
 }
 
+.result-modal {
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
 
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.result {
+  font-size: 4rem;
+  background-color: var(--secondary-color-200);
+  padding: 2rem;
+  border-radius: 15px;
+
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.result button {
+  background-color: var(--primary-color);
+  font-size: 3rem;
+  width: fit-content;
+  padding: 1rem 2rem;
+  border-radius: 10px;
+}
 
