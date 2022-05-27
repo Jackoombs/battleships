@@ -1,7 +1,7 @@
 function Nav() {
   return (
     <nav>
-      <h1>BATTLESHIPS</h1>
+      <h1>Battleships</h1>
     </nav>
   )
 }

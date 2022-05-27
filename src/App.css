@@ -1,7 +1,10 @@
-@import url("https://fonts.googleapis.com/css2?family=Oswald:wght@200;300;400;500;600;700&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@100;200;300;400;500;600;700&display=swap");
 
 :root {
-  --tile-size: 4rem
+  --tile-size: 4rem;
+  --primary-color: #112B3C;
+  --secondary-color-100: #25638d;
+  --secondary-color-200: #4c93c2;
 }
 
 .center-content {
@@ -13,30 +16,29 @@
 * {
   padding: 0;
   margin: 0;
-  font-family: 'Oswald', sans-serif;
+  font-family: 'IBM Plex Sans', sans-serif;
+  box-sizing: border-box;
 }
 
 button {
   background: none;
   border: none;
   cursor: pointer;
+  color: white;
 }
 
 body {
- 
   display: flex;
-
+  color: white;
 }
 
 .App {
-  background: #616158;
+  background: var(--primary-color);
   min-height: 100vh;
   width: 100vw;
 
-  display: grid;
-  grid-template-rows: auto 1fr;
-  grid-template-columns: 1fr auto 1fr ;
-  row-gap:  4rem;
+  display: flex;
+  flex-direction: column;
   justify-content: center;
   align-items: center;
 }
@@ -50,23 +52,41 @@ h1 {
   font-weight: 500;
   text-align: center;
   grid-area: 1 / 2 / 2 / 3;
+  margin: 2rem;
+}
+
+.content {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr;
+  grid-template-rows: 1 ;
+  width: 100%;
 }
 
 .ship-selection {
+  align-self: flex-start;
   justify-self: center;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 1rem;
+  padding: 2rem;
+  border-radius: 10px;
+  background-color: var(--secondary-color-100);
+  width: fit-content
 }
 
 .ship {
   height: var(--tile-size);
-  font-size: 1.5rem;
+  font-size: 1.25rem;
   cursor: pointer;
+  color: black;
 
   display: flex;
   align-items: center;
+}
+
+.ship h3 {
+  text-transform: capitalize;
 }
 
 .active-ship {
@@ -79,20 +99,20 @@ h3 {
 }
 
 #gameboard {
-  grid-area: 2 / 2 / end / 3;
   display: inline-grid;
   grid-template-columns: repeat(10, 1fr);
   aspect-ratio: 1 / 1;
   text-align: center;
-  border: 5px black solid;
-  border-radius: 20px;
   overflow: hidden;
+  gap: 0.25rem;
+  margin-bottom: 3rem;
 }
 
 .tile {
   width: var(--tile-size);
   height:auto;
   aspect-ratio: 1 / 1;
+  background-color: var(--secondary-color-100);
 
   display: flex;
   justify-content: center;
@@ -100,11 +120,11 @@ h3 {
 }
 
 .odd {
-  background-color: #1E6091;
+  background-color: var(--secondary-color-100);
 }
 
 .even {
-  background-color: #184E77;
+  background-color: var(--secondary-color-200);
 }
 
 .carrier {
@@ -112,7 +132,7 @@ h3 {
 }
 
 .battleship {
-  background-color:rgb(255, 202, 58);
+  background-color:rgb(240, 180, 15);
 }
 
 .cruiser {
@@ -120,11 +140,11 @@ h3 {
 }
 
 .destroyer {
-  background-color:rgb(183, 158, 219);
+  background-color:rgb(153, 109, 216);
 }
 
 .submarine {
-  background-color:rgb(226, 248, 241);
+  background-color:rgb(253, 253, 253);
 }
 
 .hit {
@@ -142,3 +162,18 @@ h3 {
 .select-target {
   background-color: gold;
 }
+
+.controls {
+  padding: 2rem;
+  border-radius: 10px;
+  display: flex;
+  flex-direction: column;
+  align-self: flex-start;
+  justify-self: center;
+  font-size: 2rem;
+  text-align: left;
+  background-color: var(--secondary-color-100);
+  width: fit-content;
+  max-width: 90%;
+}
+

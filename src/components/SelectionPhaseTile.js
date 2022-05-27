@@ -91,8 +91,9 @@ function SelectionPhaseTile(props) {
         newPlayerShips[shipIndex].tileIndexs.push(props.index)
         props.setPlayerShips(newPlayerShips)
       }
+      props.setBattleActive(true)
     }
-  },[isSelected])
+  },[props.endPlanningPhase])
 
   return (
     <div 
