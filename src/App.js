@@ -31,7 +31,7 @@ function App() {
   const [battleActive, setBattleActive] = useState(false)
   const [playerTurn, setPlayerTurn] = useState(true)
   const [activeShip, setActiveShip] = useState(ships[0])
-  const [computerShips, setComputerShips] = useState()
+  const [computerShips, setComputerShips] = useState([])
   const [playerShips, setPlayerShips] = useState([
     createPlayerShip('Carrier', 'rgb(255, 89, 94)', 5),
     createPlayerShip('Battleship', 'rgb(255, 202, 58)', 4),
@@ -51,6 +51,12 @@ function App() {
     else setActiveShip({name:false, selected:true})
   },[ships])
 
+  useEffect(() => {
+    computerShips.forEach(ship => {
+      console.log(ship.indexs)
+    });
+  },[computerShips])
+
   const changeShipSelectedStatus = (ship, isPlaced) => {
     const updatedShip = ship
     updatedShip.placed = isPlaced
@@ -59,10 +65,6 @@ function App() {
     newArray[index] = updatedShip
     setShips(newArray)
   }
-
-  useEffect(() => {
-    console.log(hitMissStatus)
-  },[hitMissStatus])
 
   const resetGame = () => {
     setShips([
@@ -84,7 +86,7 @@ function App() {
     setBattleActive(false)
     setPlayerTurn(true)
     setActiveShip(ships[0])
-    setComputerShips()
+    setComputerShips([])
     setIsWinner(false)
   }
 
@@ -111,6 +113,7 @@ function App() {
           setPlayerShips={setPlayerShips}
           computerShips={computerShips}
           setComputerShips={setComputerShips}
+          isWinner={isWinner}
           setIsWinner={setIsWinner}
           playerTurn={playerTurn}
           setPlayerTurn={setPlayerTurn}

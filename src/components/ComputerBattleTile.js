@@ -23,6 +23,7 @@ function ComputerBattleTile(props) {
     return !hitOrMiss && hover  && !props.disableClick? 'select-target' : ''
   }
 
+
   useEffect(() => {
     if (props.disableClick === props.index) {
       const isHit = checkHit(props.index, props.computerShips)

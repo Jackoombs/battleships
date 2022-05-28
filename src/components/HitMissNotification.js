@@ -6,11 +6,14 @@ function HitMissNotification(props) {
 
   useEffect (() => {
     if (props.hitMissStatus === "miss") setNotification("MISS!")
-    else setNotification("HIT!")
+    if (props.hitMissStatus === "hit") setNotification("HIT!")
+    if (!props.hitMissStatus) setNotification("Preparing to fire")
   },[props.hitMissStatus])
 
   return (
-    <h3>{notification}</h3>
+    <div className="hit-miss">
+      <h3>{notification}</h3>
+    </div>  
   )
 }
 

@@ -13,8 +13,8 @@ function GameBoard(props) {
   const [selectedTiles, setSelectedTiles] = useState([])
   const [validSelection, setValidSelection] = useState([])
   const [validOnHover, setValidOnHover] = useState(true)
-  const [currentTargets, setCurrentTargets] = useState([])
 
+  const [currentTargets, setCurrentTargets] = useState([])
   const [disableClick, setDisableClick] = useState(false)
   const [playerHit, setPlayerHit] = useState([])
   const [playerMissed, setPlayerMissed] = useState([])
@@ -32,6 +32,7 @@ function GameBoard(props) {
   useEffect(() => {
     setSelectedTiles([])
     setCurrentTile(0)
+    resetBoard()
   },[props.battleActive])
 
   useEffect(() => {
@@ -48,11 +49,15 @@ function GameBoard(props) {
   useEffect(() => {
     checkShipSunk()
     checkWin()
-  },[playerHit])
+  },[playerHit,computerHit])
 
   const checkWin = () => {
-    if (computerHit.length === 17) props.setIsWinner('player')
-    if (playerHit.length === 17) props.setIsWinner('computer')
+    if (computerHit.length === 17) {
+      props.setIsWinner('player')
+    }
+    if (playerHit.length === 17) {
+      props.setIsWinner('computer')
+    }
   }
 
   const randomTarget = () => {
@@ -93,12 +98,10 @@ function GameBoard(props) {
         props.setPlayerShips(newShips)
       }
     }
-    
   }
 
   const computerTurn = () => {
     const target = computerTarget()
-    console.log(target)
     const isHit = checkHit(target, props.playerShips)
     updateHitMissStatus(isHit)
 
@@ -112,6 +115,15 @@ function GameBoard(props) {
       props.setPlayerTurn(playerTurn => !playerTurn)
       updateHitMissStatus('reset')
     }, 2000);
+  }
+
+  const resetBoard = () => {
+    setCurrentTargets([])
+    setDisableClick(false)
+    setPlayerHit([])
+    setPlayerMissed([])
+    setComputerHit([])
+    setComputerMissed([])
   }
 
   return (

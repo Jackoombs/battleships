@@ -21,7 +21,7 @@ function Controls(props) {
         playerTurn={props.playerTurn}
       />}
 
-      {props.hitMissStatus?
+      {props.battleActive?
         <HitMissNotification 
           hitMissStatus={props.hitMissStatus}  
         />
