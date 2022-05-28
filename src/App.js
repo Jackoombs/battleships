@@ -15,7 +15,7 @@ function App() {
   }
 
   const createPlayerShip = (name, color, length) => {
-    return{name, color, length, tileIndexs: [], hits:0}
+    return{name, color, length, tileIndexs: [], sunk: false}
   }
 
   const [ships, setShips] = useState([
@@ -39,7 +39,7 @@ function App() {
     createPlayerShip('Submarine','rgb(226, 248, 241)', 3),
     createPlayerShip('Destroyer', 'rgb(183, 158, 219)', 2) 
   ])
-  const [isWinner, setIsWinner] = useState(true)
+  const [isWinner, setIsWinner] = useState(false)
   
   useEffect(() => {
     setComputerShips(generateShips)

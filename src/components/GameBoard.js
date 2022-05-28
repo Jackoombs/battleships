@@ -3,6 +3,7 @@ import { useEffect } from 'react';
 import SelectionPhaseTile from './SelectionPhaseTile';
 import ComputerBattleTile from './ComputerBattleTile';
 import PlayerBattleTile from './PlayerBattleTile';
+import computerAI from '../utils/computerAI';
 
 function GameBoard(props) {
 
@@ -12,6 +13,7 @@ function GameBoard(props) {
   const [selectedTiles, setSelectedTiles] = useState([])
   const [validSelection, setValidSelection] = useState([])
   const [validOnHover, setValidOnHover] = useState(true)
+  const [currentTargets, setCurrentTargets] = useState([])
 
   const [disableClick, setDisableClick] = useState(false)
   const [playerHit, setPlayerHit] = useState([])
@@ -34,7 +36,7 @@ function GameBoard(props) {
 
   useEffect(() => {
     if (props.battleActive) {
-    checkWin()
+    
       if (!props.playerTurn) {
         setTimeout(() => {
           computerTurn()
@@ -43,17 +45,29 @@ function GameBoard(props) {
     }
   },[props.playerTurn])
 
+  useEffect(() => {
+    checkShipSunk()
+    checkWin()
+  },[playerHit])
+
   const checkWin = () => {
     if (computerHit.length === 17) props.setIsWinner('player')
-    if (playerHit.length === 17) props.setIsWinner('player')
+    if (playerHit.length === 17) props.setIsWinner('computer')
   }
 
-  const computerTarget = () => {
+  const randomTarget = () => {
     let index = null 
     while (index===null || playerHit.includes(index) || playerMissed.includes(index)) {
       index = Math.floor(Math.random() * (100));
     }
     return index
+  }
+
+  const computerTarget = () => {
+    const excludeArray = playerHit.concat(playerMissed)
+    return !currentTargets.length?
+      randomTarget():
+      computerAI(currentTargets, excludeArray)
   }
 
   const checkHit = (index, ships) => {
@@ -68,12 +82,30 @@ function GameBoard(props) {
     else props.setHitMissStatus("miss")
   }
 
+  const checkShipSunk = () => {
+    for (const ship of props.playerShips){
+      const hits = playerHit.filter(index => ship.tileIndexs.includes(index))
+      if (hits.length === ship.length && !ship.sunk) {
+        setCurrentTargets([])
+        const newShips = [...props.playerShips]
+        const shipIndex = newShips.findIndex(item => item.name === ship.name)
+        newShips[shipIndex].sunk = true
+        props.setPlayerShips(newShips)
+      }
+    }
+    
+  }
+
   const computerTurn = () => {
     const target = computerTarget()
+    console.log(target)
     const isHit = checkHit(target, props.playerShips)
     updateHitMissStatus(isHit)
 
-    if (isHit) setPlayerHit(oldArray => [...oldArray, target]);
+    if (isHit) {
+      setPlayerHit(oldArray => [...oldArray, target]);
+      setCurrentTargets(oldArray => [...oldArray, target])
+    }
     else setPlayerMissed(oldArray => [...oldArray, target]);
 
     setTimeout(() => {

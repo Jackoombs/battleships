@@ -3,8 +3,6 @@ import React, { useEffect, useState} from "react";
 function HitMissNotification(props) {
 
   const [notification, setNotification] = useState()
-  console.log(props.hitMissStatus)
-
 
   useEffect (() => {
     if (props.hitMissStatus === "miss") setNotification("MISS!")
