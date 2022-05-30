@@ -17,7 +17,8 @@ function SelectionPhaseTile(props) {
     if (props.selectionPreview.length) {
       selectionPreview(props.currentTile, props.activeShip.length)
     }
-  },[props.previewOrientation, props.activeShip])
+  },[props.previewOrientation, props.activeShip, props.currentTile])
+
 
   // When the user places a ship, update the tile state to show the tiles are taken.
   useEffect(() => {
@@ -97,11 +98,13 @@ function SelectionPhaseTile(props) {
 
   return (
     <div 
+      id={props.index}
       style={{backgroundColor:setBackgroundOnHover()}}
       className={[initClass, 'tile', isSelected.selected?isSelected.name.toLowerCase():''].join(' ')}
       onMouseEnter={passSelectionPreviewOnHover}
       onWheel={updateOrientationOnWheel}
       onClick={tileClickHandler}
+      onTouchStart={passSelectionPreviewOnHover}
     >
     </div>
       

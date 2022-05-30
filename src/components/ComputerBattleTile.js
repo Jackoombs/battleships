@@ -52,8 +52,6 @@ function ComputerBattleTile(props) {
   return (
     <div 
       className={`${initClass} tile ${hitOrMiss?hitOrMiss:''} ${setHoverEffect()}`}
-      onMouseEnter={() => {setHover(true)}}
-      onMouseLeave={() => {setHover(false)}}
       onClick={!props.disableClick&&!hitOrMiss?clickHandler:undefined}>
       {/* {props.index} */}
     </div>

@@ -64,8 +64,8 @@ function ResultModal(props) {
   }, [intervalId]);
 
   return (
-    <div className={`result-modal ${props.playerTurn?'win':'loss'}`}>
-      <div className="result">
+    <div className={`modal-outer ${props.playerTurn?'win':'loss'}`}>
+      <div className="modal-inner">
         {resultMessage}
         <button onClick={props.resetGame}>
           RESET GAME

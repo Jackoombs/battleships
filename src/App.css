@@ -98,6 +98,13 @@ h3 {
   text-transform: uppercase;
 }
 
+main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
 #gameboard {
   display: inline-grid;
   grid-template-columns: repeat(10, auto);
@@ -182,7 +189,7 @@ h3 {
   font-size: 3rem;
 }
 
-.result-modal {
+.modal-outer {
   position: fixed; /* Stay in place */
   z-index: 1; /* Sit on top */
   left: 0;
@@ -198,11 +205,12 @@ h3 {
   align-items: center;
 }
 
-.result {
+.modal-inner {
   font-size: 4rem;
   background-color: var(--secondary-color-200);
   padding: 2rem;
   border-radius: 15px;
+  margin-inline: 2vw;
 
   display: flex;
   flex-direction: column;
@@ -211,12 +219,13 @@ h3 {
   gap: 2rem;
 }
 
-.result button {
+.modal-inner button {
   background-color: var(--primary-color);
   font-size: 3rem;
   width: fit-content;
   padding: 1rem 2rem;
   border-radius: 10px;
+  
 }
 
 .hit-miss {
@@ -228,10 +237,32 @@ h3 {
   font-size: 2rem;
 }
 
+.control-info {
+  font-size: 2.5rem;
+}
+
+.mobile-btns {
+  display: flex;
+  justify-content: center;
+  gap: 60px;
+  margin: 2vw 0;
+  visibility: hidden;
+}
+
+.mobile-btn {
+  background-color: var(--secondary-color-100);
+  padding: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+}
+
 @media (max-width: 1024px) {
   :root {
-    --tile-size: 9.5vw;
+    --tile-size: 9.3vw;
     font-size: 7pt;
+    overflow-x: hidden;
   }
 
   .content {
@@ -241,11 +272,12 @@ h3 {
   }
 
   .hit-miss {
-    width:80vw
+    width:80vw;
   }
 
   #gameboard {
-    margin: 4vw
+    margin: 4vw;
+    margin-bottom: 0;
   }
 
   .ship h3 {
@@ -254,5 +286,14 @@ h3 {
 
   .controls {
     gap: 2rem;
+  }
+
+  .ship-selection {
+    margin-bottom: 2vw;
+  }
+
+  .mobile-btns {
+    display: flex;
+    visibility: visible;
   }
 }

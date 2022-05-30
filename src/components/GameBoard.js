@@ -4,6 +4,7 @@ import SelectionPhaseTile from './SelectionPhaseTile';
 import ComputerBattleTile from './ComputerBattleTile';
 import PlayerBattleTile from './PlayerBattleTile';
 import computerAI from '../utils/computerAI';
+import MobileTools from './MobileTools';
 
 function GameBoard(props) {
 
@@ -50,6 +51,15 @@ function GameBoard(props) {
     checkShipSunk()
     checkWin()
   },[playerHit,computerHit])
+
+  const onTouchMoveHandler = (e) => {
+    const xCoord = e.targetTouches[0].clientX
+    const yCoord = e.targetTouches[0].clientY
+    const elements = document.elementsFromPoint(xCoord, yCoord)
+    if (elements[0].classList.contains('tile')) {
+      setCurrentTile(+elements[0].id)
+    }
+  }
 
   const checkWin = () => {
     if (computerHit.length === 17) {
@@ -127,77 +137,82 @@ function GameBoard(props) {
   }
 
   return (
-    <main id="gameboard"
-          onMouseLeave={() => {
-            setSelectionPreview([])
-            setCurrentTile()
-          }}
-    >
-      
+    <main>
+      <div id="gameboard"
+        onMouseLeave={() => {
+          setSelectionPreview([])
+          setCurrentTile()
+        }}
+        onTouchMove={onTouchMoveHandler}>
+
       {!props.battleActive?
-      [...Array(100)].map((e, i) => {
-        return (
-          <SelectionPhaseTile 
-            key={i}
-            index={i}
-            ships={props.ships}
-            activeShip={props.activeShip}
-            setActiveShip={props.setActiveShip}
-            selectionPreview={selectionPreview}
-            setSelectionPreview={setSelectionPreview}
-            previewOrientation={previewOrientation}
-            setPreviewOrientation={setPreviewOrientation}
-            currentTile={currentTile}
-            setCurrentTile={setCurrentTile}
-            selectedTiles={selectedTiles}
-            setSelectedTiles={setSelectedTiles}
-            validSelection={validSelection}
-            setValidSelection={setValidSelection}
-            changeShipSelectedStatus={props.changeShipSelectedStatus}
-            validOnHover={validOnHover}
-            playerShips={props.playerShips}
-            setPlayerShips={props.setPlayerShips}
-            battleActive={props.battleActive}
-            setBattleActive={props.setBattleActive}
-            endPlanningPhase={props.endPlanningPhase}
-          /> 
-        )           
-      }):props.playerTurn?
-      [...Array(100)].map((e, i) => {
-        return (
-          <ComputerBattleTile 
-            key={i}
-            index={i}
-            computerHit={computerHit}
-            setComputerHit={setComputerHit}
-            computerMissed={computerMissed}
-            setComputerMissed={setComputerMissed}
-            computerShips={props.computerShips}
-            setComputerShips={props.setComputerShips}
-            setPlayerTurn={props.setPlayerTurn}
-            disableClick={disableClick}
-            setDisableClick={setDisableClick}
-            updateHitMissStatus={updateHitMissStatus}
-          />
-      )
-      }):
-      [...Array(100)].map((e, i) => {
-        return (
-          <PlayerBattleTile 
-            key={i}
-            index={i}
-            playerHit={playerHit}
-            setPlayerHit={setPlayerHit}
-            playerMissed={playerMissed}
-            setPlayerMissed={setPlayerMissed}
-            playerShips={props.playerShips}
-            setPlayerShips={props.setPlayerShips}
-            setPlayerTurn={props.setPlayerTurn}
-          />
-      )
-      })
       
+        [...Array(100)].map((e, i) => {
+          return (
+            <SelectionPhaseTile
+              key={i}
+              index={i}
+              ships={props.ships}
+              activeShip={props.activeShip}
+              setActiveShip={props.setActiveShip}
+              selectionPreview={selectionPreview}
+              setSelectionPreview={setSelectionPreview}
+              previewOrientation={previewOrientation}
+              setPreviewOrientation={setPreviewOrientation}
+              currentTile={currentTile}
+              setCurrentTile={setCurrentTile}
+              selectedTiles={selectedTiles}
+              setSelectedTiles={setSelectedTiles}
+              validSelection={validSelection}
+              setValidSelection={setValidSelection}
+              changeShipSelectedStatus={props.changeShipSelectedStatus}
+              validOnHover={validOnHover}
+              playerShips={props.playerShips}
+              setPlayerShips={props.setPlayerShips}
+              battleActive={props.battleActive}
+              setBattleActive={props.setBattleActive}
+              endPlanningPhase={props.endPlanningPhase}
+            />
+          )
+        }):props.playerTurn?
+        [...Array(100)].map((e, i) => {
+          return (
+            <ComputerBattleTile
+              key={i}
+              index={i}
+              computerHit={computerHit}
+              setComputerHit={setComputerHit}
+              computerMissed={computerMissed}
+              setComputerMissed={setComputerMissed}
+              computerShips={props.computerShips}
+              setComputerShips={props.setComputerShips}
+              setPlayerTurn={props.setPlayerTurn}
+              disableClick={disableClick}
+              setDisableClick={setDisableClick}
+              updateHitMissStatus={updateHitMissStatus}
+            />
+        )
+        }):
+        [...Array(100)].map((e, i) => {
+          return (
+            <PlayerBattleTile
+              key={i}
+              index={i}
+              playerHit={playerHit}
+              setPlayerHit={setPlayerHit}
+              playerMissed={playerMissed}
+              setPlayerMissed={setPlayerMissed}
+              playerShips={props.playerShips}
+              setPlayerShips={props.setPlayerShips}
+              setPlayerTurn={props.setPlayerTurn}
+            />
+          )
+        })
       }
+      </div>
+      <MobileTools 
+        setPreviewOrientation={setPreviewOrientation}
+      />
     </main>
  )
 }
