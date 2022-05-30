@@ -31,6 +31,10 @@ function GameBoard(props) {
   )
 
   useEffect(() => {
+    console.log(currentTile)
+  },[currentTile])
+
+  useEffect(() => {
     setSelectedTiles([])
     setCurrentTile(0)
     resetBoard()
@@ -141,7 +145,6 @@ function GameBoard(props) {
       <div id="gameboard"
         onMouseLeave={() => {
           setSelectionPreview([])
-          setCurrentTile()
         }}
         onTouchMove={onTouchMoveHandler}>
 

@@ -71,7 +71,10 @@ function ResultModal(props) {
           RESET GAME
         </button>
       </div>
-      <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />
+
+      {props.playerTurn?
+        <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />:''
+      }
     </div>
   )
 }
