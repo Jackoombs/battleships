@@ -100,17 +100,14 @@ h3 {
 
 #gameboard {
   display: inline-grid;
-  grid-template-columns: repeat(10, 1fr);
-  aspect-ratio: 1 / 1;
+  grid-template-columns: repeat(10, auto);
   text-align: center;
-  overflow: hidden;
   margin-bottom: 3rem;
 }
 
 .tile {
   width: var(--tile-size);
-  height:auto;
-  aspect-ratio: 1 / 1;
+  height: var(--tile-size);
   background-color: var(--secondary-color-100);
   outline: 0.25rem var(--primary-color) solid;
 
@@ -231,3 +228,23 @@ h3 {
   font-size: 2rem;
 }
 
+@media (max-width: 1024px) {
+  :root {
+    --tile-size: 9.5vw;
+    font-size: 7pt;
+  }
+
+  .content {
+    grid-template-columns: auto;
+    align-items: center;
+    justify-content: center;
+  }
+
+  #gameboard {
+    margin: 4vw
+  }
+
+  .ship h3 {
+    display: none;
+  }
+}

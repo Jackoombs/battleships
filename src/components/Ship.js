@@ -3,7 +3,7 @@ import React from "react";
 function Ship(props) {
   
   const styles = {
-    width: `${props.length*5}rem`,
+    width: `calc(var(--tile-size) * ${props.length})`,
     backgroundColor: `${props.color}`
   }
 
