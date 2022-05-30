@@ -1,1 +1,15 @@
 node_modules
+build/asset-manifest.json
+build/favicon.ico
+build/index.html
+build/logo192.png
+build/logo512.png
+build/manifest.json
+build/robots.txt
+build/static/css/main.81283eb2.css
+build/static/css/main.81283eb2.css.map
+build/static/js/787.f2bac129.chunk.js
+build/static/js/787.f2bac129.chunk.js.map
+build/static/js/main.f123086e.js
+build/static/js/main.f123086e.js.LICENSE.txt
+build/static/js/main.f123086e.js.map
