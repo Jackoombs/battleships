@@ -240,11 +240,19 @@ h3 {
     justify-content: center;
   }
 
+  .hit-miss {
+    width:80vw
+  }
+
   #gameboard {
     margin: 4vw
   }
 
   .ship h3 {
     display: none;
+  }
+
+  .controls {
+    gap: 2rem;
   }
 }
