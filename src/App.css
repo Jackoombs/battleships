@@ -283,7 +283,7 @@ main {
   justify-content: center;
   gap: 60px;
   margin: 2vw 0;
-  visibility: hidden;
+  display: none;
 }
 
 .mobile-btn {
@@ -341,7 +341,6 @@ main {
 
   .mobile-btns {
     display: flex;
-    visibility: visible;
   }
 }
 
