@@ -1,7 +1,7 @@
 import battleshipPreview from "./battleshipSelectionPreview.js";
 
 const createShip = (name, length) => {
-  return{name, length, indexs: [0], hits: 0}
+  return{name, length, tileIndexs: [0], hits: 0, sunk:false}
 }
 
 const getRandomIndex = (max, excludedIndexArray=[]) => {
@@ -37,7 +37,7 @@ const generateShips = () => {
       indexs = battleshipPreview(randomIndex, ship.length, randomOrientation)
     }
 
-    ship.indexs = indexs
+    ship.tileIndexs = indexs
     excludedIndexs.push(...indexs)
   });
 

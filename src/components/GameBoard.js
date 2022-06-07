@@ -38,11 +38,10 @@ function GameBoard(props) {
     setSelectedTiles([])
     setCurrentTile(0)
     resetBoard()
-  },[props.battleActive])
+  },[props.isWinner])
 
   useEffect(() => {
-    if (props.battleActive) {
-    
+    if (props.battleActive && !props.isWinner) {
       if (!props.playerTurn) {
         setTimeout(() => {
           computerTurn()
@@ -52,9 +51,11 @@ function GameBoard(props) {
   },[props.playerTurn])
 
   useEffect(() => {
-    checkShipSunk()
+    props.playerTurn
+      ?checkShipSunk(props.computerShips, props.setComputerShips, computerHit)
+      :checkShipSunk(props.playerShips, props.setPlayerShips, playerHit)
     checkWin()
-  },[playerHit,computerHit])
+  },[playerHit, computerHit])
 
   const onTouchMoveHandler = (e) => {
     const xCoord = e.targetTouches[0].clientX
@@ -101,15 +102,15 @@ function GameBoard(props) {
     else props.setHitMissStatus("miss")
   }
 
-  const checkShipSunk = () => {
-    for (const ship of props.playerShips){
-      const hits = playerHit.filter(index => ship.tileIndexs.includes(index))
+  const checkShipSunk = (ships, setShips, turnHit) => {
+    for (const ship of ships){
+      const hits = turnHit.filter(index => ship.tileIndexs.includes(index))
       if (hits.length === ship.length && !ship.sunk) {
-        setCurrentTargets([])
-        const newShips = [...props.playerShips]
+        if (!props.playerTurn) setCurrentTargets([]);
+        const newShips = [...ships]
         const shipIndex = newShips.findIndex(item => item.name === ship.name)
         newShips[shipIndex].sunk = true
-        props.setPlayerShips(newShips)
+        setShips(newShips)
       }
     }
   }
@@ -193,6 +194,9 @@ function GameBoard(props) {
               disableClick={disableClick}
               setDisableClick={setDisableClick}
               updateHitMissStatus={updateHitMissStatus}
+              checkShipSunk={checkShipSunk}
+              isWinner={props.isWinner}
+              setIsWinner={props.setIsWinner}
             />
         )
         }):
@@ -213,9 +217,12 @@ function GameBoard(props) {
         })
       }
       </div>
-      <MobileTools 
-        setPreviewOrientation={setPreviewOrientation}
-      />
+
+      {!props.battleActive?
+        <MobileTools 
+          setPreviewOrientation={setPreviewOrientation}
+        />:''
+      }
     </main>
  )
 }

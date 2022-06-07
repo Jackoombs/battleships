@@ -15,7 +15,7 @@ function ComputerBattleTile(props) {
 
   const checkHit = (index, ships) => {
     for (const ship of ships) {
-      if (ship.indexs.includes(index)) return true
+      if (ship.tileIndexs.includes(index)) return true
     }
   }
 
@@ -55,7 +55,6 @@ function ComputerBattleTile(props) {
       onClick={!props.disableClick&&!hitOrMiss?clickHandler:undefined}
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}>
-      {/* {props.index} */}
     </div>
   )
 }

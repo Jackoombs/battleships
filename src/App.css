@@ -60,9 +60,14 @@ h1 {
   width: 100%;
 }
 
-.ship-selection {
+.ship-panel {
+  display: flex;
   align-self: flex-start;
-  justify-self: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.ship-selection {
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -70,7 +75,37 @@ h1 {
   padding: 2rem;
   border-radius: 10px;
   background-color: var(--secondary-color-100);
-  width: fit-content
+  width: fit-content;
+}
+
+.ship-status {
+  background-color: var(--secondary-color-100);
+  padding: 1rem;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  max-width: 90%;
+  align-self: center;
+  gap: 0.5rem;
+}
+
+.ships {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+  font-size: 1rem;
+  
+}
+
+.status-container {
+  border: var(--primary-color) 2px solid;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 0.5rem;
+  border-radius: 5px;
+  width: 50%;
 }
 
 .ship {
@@ -156,6 +191,10 @@ main {
 
 .miss {
   background-color: transparent
+}
+
+.sunk {
+  opacity: 0;
 }
 
 .control-btn {
@@ -258,18 +297,22 @@ main {
 
 @media (max-width: 1440px) {
   :root {
-    --tile-size: 3rem
+    --tile-size: 2.5rem
   }
 
   .ship h3 {
     display: none;
+  }
+
+  .controls {
+    gap: 2rem;
   }
 }
 
 @media (max-width: 1024px) {
   :root {
     --tile-size: 9.3vw;
-    font-size: 7pt;
+    font-size: 6.5pt;
     overflow-x: hidden;
   }
 
@@ -288,12 +331,12 @@ main {
     margin-bottom: 0;
   }
 
-  .controls {
-    gap: 2rem;
-  }
-
   .ship-selection {
     margin-bottom: 2vw;
+  }
+
+  .ship-status {
+    margin-block: 2vw;
   }
 
   .mobile-btns {

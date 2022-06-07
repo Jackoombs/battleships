@@ -1,7 +1,7 @@
 import './App.css';
 import Nav from './components/Nav'
 import GameBoard from './components/GameBoard'
-import ShipSelection from './components/ShipSelection';
+import ShipPanel from './components/ShipPanel';
 import { useState } from 'react';
 import { useEffect } from 'react';
 import GameInfo from './components/GameInfo';
@@ -46,16 +46,14 @@ function App() {
   },[battleActive])
 
   useEffect(() => {
+    console.log(computerShips, playerShips)
+  },[computerShips, playerShips])
+
+  useEffect(() => {
     const shipsNotPlaced = ships.filter(ship => ship.placed === false)
     if (shipsNotPlaced.length) setActiveShip(shipsNotPlaced[0])
     else setActiveShip({name:false, selected:true})
   },[ships])
-
-  useEffect(() => {
-    computerShips.forEach(ship => {
-      console.log(ship.indexs)
-    });
-  },[computerShips])
 
   const changeShipSelectedStatus = (ship, isPlaced) => {
     const updatedShip = ship
@@ -102,6 +100,7 @@ function App() {
           playerTurn={playerTurn}
           hitMissStatus={hitMissStatus}
         />
+        
         <GameBoard 
           ships={ships}
           activeShip={activeShip}
@@ -120,11 +119,15 @@ function App() {
           endPlanningPhase={endPlanningPhase}
           setHitMissStatus={setHitMissStatus}
         />
-        <ShipSelection 
+        
+        <ShipPanel 
+          battleActive={battleActive}
           activeShip={activeShip}
           setActiveShip={setActiveShip}
           ships={ships}
           changeShipSelectedStatus={changeShipSelectedStatus}
+          playerShips={playerShips}
+          computerShips={computerShips}
         />
       </section>  
 
@@ -132,6 +135,7 @@ function App() {
       <ResultModal 
         playerTurn={playerTurn}
         resetGame={resetGame}
+        isWinner={isWinner}
       />:''}
 
     </div>

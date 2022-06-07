@@ -46,7 +46,8 @@ function ResultModal(props) {
   }, []);
 
   useEffect(() => {
-    props.playerTurn?
+    console.log(props.isWinner)
+    props.isWinner === 'player'?
       setResultMessage('Congratulations You Won!'):
       setResultMessage('Sorry You Lost!')
   },[])  
@@ -64,7 +65,7 @@ function ResultModal(props) {
   }, [intervalId]);
 
   return (
-    <div className={`modal-outer ${props.playerTurn?'win':'loss'}`}>
+    <div className={`modal-outer`}>
       <div className="modal-inner">
         {resultMessage}
         <button onClick={props.resetGame}>
@@ -72,7 +73,7 @@ function ResultModal(props) {
         </button>
       </div>
 
-      {props.playerTurn?
+      {props.isWinner === 'player'?
         <ReactCanvasConfetti refConfetti={getInstance} style={canvasStyles} />:''
       }
     </div>
